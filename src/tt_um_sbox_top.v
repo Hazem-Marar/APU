@@ -1,5 +1,6 @@
 module tt_um_sbox_top (
     input        clk,
+    input        ena,
     input  [1:0] mode,
     input  [7:0] data_i,
     output reg [7:0] data_o
