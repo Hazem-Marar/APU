@@ -19,6 +19,7 @@ project:
   source_files:
 #    - "project.v"
     - "tt_um_sbox_top.v"
+    - "sbox_top_internal.v"
     - "sbox.v"
     - "isbox.v"
     - "sbox_com.v"
