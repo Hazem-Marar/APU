@@ -5,19 +5,33 @@ from cocotb.triggers import RisingEdge
 @cocotb.test()
 async def test_sbox(dut):
 
-    clock = Clock(dut.clk, 10, units="ns")
+    # Start clock
+    clock = Clock(dut.clk, 10, unit="ns")
     cocotb.start_soon(clock.start())
 
+    # Apply reset
+    dut.rst_n.value = 0
+    dut.ui_in.value = 0
+    dut.uio_in.value = 0
+
+    # Wait a few cycles in reset
+    for _ in range(3):
+        await RisingEdge(dut.clk)
+
+    # Release reset
     dut.rst_n.value = 1
 
-    # Example input
+    # Apply input
     dut.ui_in.value = 0x53
-    dut.uio_in.value = 0b10  # mode
+    dut.uio_in.value = 0b10  # mode = 10
 
-    await RisingEdge(dut.clk)
+    # Wait for output to settle (VERY IMPORTANT)
+    for _ in range(3):
+        await RisingEdge(dut.clk)
 
-    result = dut.uo_out.value.integer
+    # Now read output
+    result = dut.uo_out.value.to_unsigned()
+
     print(f"Output: {result:#x}")
 
-    # Expected AES S-box output for 0x53 = 0xED
     assert result == 0xED, f"Expected 0xED, got {result:#x}"
