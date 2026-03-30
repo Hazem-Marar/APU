@@ -9,12 +9,12 @@ You can also include images in this folder and reference them in the markdown. E
 
 ## How it works
 
-Explain how your project works
+The design contain the Sbox used in AES encryption and it's inverse. The Sbox and the inverse Sbox are implemented as LUT and using composite field arithmetic
 
 ## How to test
 
-Explain how to use your project
+Two mode bits will specify the block to enable. Mode =0: Composite Sbox, Mode=1: Composite inverse Sbox, Mode=2: LUT Sbox, Mode=3: inverse LUT Sbox
 
 ## External hardware
 
-List external hardware used in your project (e.g. PMOD, LED display, etc), if any
+No need for external hardware. The output can be connected to LEDs to validate
