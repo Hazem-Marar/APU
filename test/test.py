@@ -1,14 +1,18 @@
 import cocotb
 from cocotb.triggers import Timer
 
+async def clock_gen(dut):
+    while True:
+        dut.clk.value = 0
+        await Timer(5, units="ns")
+        dut.clk.value = 1
+        await Timer(5, units="ns")
 
 @cocotb.test()
 async def test_all(dut):
 
-    # Start clock
-    cocotb.start_soon(clock_gen(dut))
+    cocotb.start_soon(clock_gen(dut))  # ✅ now valid
 
-    # Init signals
     dut.ena.value = 1
     dut.rst_n.value = 0
     dut.ui_in.value = 0
