@@ -23,16 +23,61 @@ module tb ();
   wire [7:0] uio_out;
   wire [7:0] uio_oe;
 
-  // Replace tt_um_example with your module name:
-  tt_um_sbox_top user_project (
-      .ui_in  (ui_in),    // Dedicated inputs
-      .uo_out (uo_out),   // Dedicated outputs
-      .uio_in (uio_in),   // IOs: Input path
-      .uio_out(uio_out),  // IOs: Output path
-      .uio_oe (uio_oe),   // IOs: Enable path (active high: 0=input, 1=output)
-      .ena    (ena),      // enable - goes high when design is selected
-      .clk    (clk),      // clock
-      .rst_n  (rst_n)     // not reset
-  );
 
+
+    // DUT
+    tt_um_example dut (
+        .ui_in(ui_in),
+        .uio_in(uio_in),
+        .uo_out(uo_out),
+        .uio_out(),
+        .uio_oe(),
+        .ena(1'b1),
+        .clk(clk),
+        .rst_n(rst_n)
+    );
+
+    // Clock
+    always #5 clk = ~clk;
+
+    initial begin
+        clk = 0;
+        rst_n = 0;
+        ui_in = 0;
+        uio_in = 0;
+
+        #20;
+        rst_n = 1;
+
+        // =========================
+        // ADD MODE TESTS
+        // =========================
+        $display("ADD MODE");
+
+        ui_in = {7'd10, 1'b0}; uio_in = 8'd5;   #10;
+        $display("A=10, B=5 → OUT=%d", uo_out);
+
+        ui_in = {7'd50, 1'b0}; uio_in = 8'd20;  #10;
+        $display("A=50, B=20 → OUT=%d", uo_out);
+
+        ui_in = {7'd100,1'b0}; uio_in = 8'd100; #10;
+        $display("A=100, B=100 → OUT=%d", uo_out);
+
+        // =========================
+        // MULT MODE TESTS
+        // =========================
+        $display("MULT MODE");
+
+        ui_in = {7'd10, 1'b1}; uio_in = 8'd5;   #10;
+        $display("A=10, B=5 → OUT=%d", uo_out);
+
+        ui_in = {7'd20, 1'b1}; uio_in = 8'd20;  #10;
+        $display("A=20, B=20 → OUT=%d", uo_out);
+
+        ui_in = {7'd100,1'b1}; uio_in = 8'd3;   #10;
+        $display("A=100, B=3 → OUT=%d", uo_out);
+
+        $display("TEST COMPLETE");
+        $stop;
+    end
 endmodule
