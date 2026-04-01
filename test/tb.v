@@ -1,13 +1,7 @@
 `default_nettype none
 `timescale 1ns / 1ps
 
-module tb ();
-
-  // Dump waves
-  initial begin
-    $dumpfile("tb.fst");
-    $dumpvars(0, tb);
-  end
+module tb;
 
   // Signals
   reg clk;
@@ -31,7 +25,7 @@ module tb ();
       .rst_n(rst_n)
   );
 
-  // ✅ Initialize signals
+  // Initialize signals
   initial begin
     clk = 0;
     rst_n = 0;
@@ -40,7 +34,7 @@ module tb ();
     uio_in = 0;
   end
 
-  // ✅ Clock generator
+  // Clock
   always #5 clk = ~clk;
 
 endmodule
