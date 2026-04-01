@@ -9,11 +9,11 @@ You can also include images in this folder and reference them in the markdown. E
 
 ## How it works
 
-The design contain the Sbox used in AES encryption and it's inverse. The Sbox and the inverse Sbox are implemented as LUT and using composite field arithmetic
+The design accepts two 8-bit numbers. A[0] is also used to choose addition or multiplication. The design gives an approximate result.
 
 ## How to test
 
-Two mode bits will specify the block to enable. Mode =0: Composite Sbox, Mode=1: Composite inverse Sbox, Mode=2: LUT Sbox, Mode=3: inverse LUT Sbox
+Apply two 8-bit numbers and select a mode
 
 ## External hardware
 
