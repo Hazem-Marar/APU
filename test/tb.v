@@ -26,7 +26,7 @@ module tb ();
 
 
     // DUT
-    tt_um_example dut (
+    tt_um_top dut (
         .ui_in(ui_in),
         .uio_in(uio_in),
         .uo_out(uo_out),
