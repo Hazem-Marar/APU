@@ -14,14 +14,14 @@ jobs:
           submodules: recursive
 
       - name: Build GDS
-        uses: TinyTapeout/tt-gds-action@v1
+        uses: TinyTapeout/tt-gds-action@ttsky130
 
   precheck:
     needs: gds
     runs-on: ubuntu-24.04
     steps:
       - name: Run Tiny Tapeout Precheck
-        uses: TinyTapeout/tt-gds-action/precheck@v1
+        uses: TinyTapeout/tt-gds-action/precheck@ttsky130
 
   gl_test:
     needs: gds
@@ -33,7 +33,7 @@ jobs:
           submodules: recursive
 
       - name: GL test
-        uses: TinyTapeout/tt-gds-action/gl_test@v1
+        uses: TinyTapeout/tt-gds-action/gl_test@ttsky130
 
   viewer:
     needs: gds
@@ -42,4 +42,4 @@ jobs:
       pages: write
       id-token: write
     steps:
-      - uses: TinyTapeout/tt-gds-action/viewer@v1
+      - uses: TinyTapeout/tt-gds-action/viewer@ttsky130
