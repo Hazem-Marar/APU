@@ -6,7 +6,7 @@ on:
 
 jobs:
   gds:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - name: checkout repo
         uses: actions/checkout@v4
@@ -14,32 +14,22 @@ jobs:
           submodules: recursive
 
       - name: Build GDS
-        uses: TinyTapeout/tt-gds-action@v0.0.1
+        uses: TinyTapeout/tt-gds-action@ttsky26a
+        with:
+          pdk: sky130A
 
   precheck:
     needs: gds
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - name: Run Tiny Tapeout Precheck
-        uses: TinyTapeout/tt-gds-action/precheck@v0.0.1
-
-  gl_test:
-    needs: gds
-    runs-on: ubuntu-22.04
-    steps:
-      - name: checkout repo
-        uses: actions/checkout@v4
-        with:
-          submodules: recursive
-
-      - name: GL test
-        uses: TinyTapeout/tt-gds-action/gl_test@v0.0.1
+        uses: TinyTapeout/tt-gds-action/precheck@ttsky26a
 
   viewer:
     needs: gds
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     permissions:
-      pages: write
-      id-token: write
+      pages: write      # to deploy to Pages
+      id-token: write   # to verify the deployment originates from an appropriate source
     steps:
-      - uses: TinyTapeout/tt-gds-action/viewer@v0.0.1
+      - uses: TinyTapeout/tt-gds-action/viewer@ttsky26a
